@@ -13,8 +13,10 @@ def handle(request):
 
     # Call verification function if request type is verification, else process message
     if str(body['type']) == 'verification':
+        print("[INFO] Verification challenge")
         return verification(body)
     elif str(body['type']) == 'message-created':
+        print("[INFO] Message")
         return parseMessage(body)
 
 
@@ -25,6 +27,7 @@ def verification(inp):
     newhdr = hmac.new(config.WEBHOOK_SECRET, msg=str(json.dumps(responseBody)), 
                       digestmod=hashlib.sha256).hexdigest()
     response.headers['X-Outbound-Token'] = newhdr
+    print(response)
     return response
 
 # Process message and send respond back to Watson Work Services for test 
