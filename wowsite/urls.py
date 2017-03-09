@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin$', admin.site.urls),
-    url(r'^fortunebot$', include('fortunebot.urls')),
-    url(r'^webhook$', include('fortunebot.urls')),
+    url(r'^admin', admin.site.urls),
+    url(r'^fortunebot', include('fortunebot.urls')),
+    url(r'^webhook', include('fortunebot.urls')),
 ]
