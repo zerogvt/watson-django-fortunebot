@@ -6,6 +6,7 @@ from . import config
 from . import message
 
 def handle(request):
+    print("In fortunebot:webhooks:handle")
     if not request:
         raise Exception('Invalid Request')
 
@@ -21,6 +22,7 @@ def handle(request):
 
 
 def verification(inp):
+    print("In fortunebot:webhooks:verification")
     responseBody = {'response': str(inp['challenge'])}
     response = HttpResponse(response=json.dumps(responseBody),
                       content_type='application/json', status=200)
@@ -29,6 +31,7 @@ def verification(inp):
     response.headers['X-Outbound-Token'] = newhdr
     print(response)
     return response
+
 
 # Process message and send respond back to Watson Work Services for test 
 def parseMessage(body):
