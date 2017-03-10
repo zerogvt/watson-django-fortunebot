@@ -8,10 +8,13 @@ from . import message
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
+    print("===================")
     print(request.POST)
     print(request.GET)
     print(request.content_type)
     print(request.content_params)
+    print(request.body)
+    print("===================")
     sys.stderr.flush()
     if not request:
         raise Exception('Invalid Request')
