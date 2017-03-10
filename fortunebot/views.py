@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt 
 # Create your views here.
 
 from . import webhooks
@@ -7,6 +7,6 @@ from . import webhooks
 def index(request):
     return HttpResponse("INDEX")
 
-@ensure_csrf_cookie
+@csrf_exempt 
 def webhook(request):
     return webhooks.handle(request)
