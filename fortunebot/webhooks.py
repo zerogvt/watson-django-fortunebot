@@ -19,7 +19,7 @@ def handle(request):
     if not request:
         raise Exception('Invalid Request')
 
-    body = request.body
+    body = request.body.decode("utf-8")
 
     # Call verification function if request type is verification, else process message
     if str(body['type']) == 'verification':
