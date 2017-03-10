@@ -6,7 +6,6 @@ from . import config
 from . import message
 
 def handle(request):
-    return HttpResponse("OOINDEX")
     if not request:
         raise Exception('Invalid Request')
 

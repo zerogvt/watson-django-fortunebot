@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from . import webhooks
 
 def index(request):
-    return HttpResponse("IIINDEX")
+    return HttpResponse("INDEX")
 
 def webhook(request):
     return webhooks.handle(request)
