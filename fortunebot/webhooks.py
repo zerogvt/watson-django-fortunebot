@@ -1,12 +1,16 @@
 import hmac
 import json
 import hashlib
+import logging
 from django.http import HttpResponse
 from . import config
 from . import message
 
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
 def handle(request):
-    print("In fortunebot:webhooks:handle")
+    logger.info("In fortunebot:webhooks:handle")
     if not request:
         raise Exception('Invalid Request')
 
@@ -22,7 +26,7 @@ def handle(request):
 
 
 def verification(inp):
-    print("In fortunebot:webhooks:verification")
+    logger.info("In fortunebot:webhooks:verification")
     responseBody = {'response': str(inp['challenge'])}
     response = HttpResponse(response=json.dumps(responseBody),
                       content_type='application/json', status=200)
