@@ -8,12 +8,12 @@ from . import message
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
-    print(request)
+    print(request.__dict__)
     sys.stderr.flush()
     if not request:
         raise Exception('Invalid Request')
 
-    body = request.json
+    body = request.__dict__
 
     # Call verification function if request type is verification, else process message
     if str(body['type']) == 'verification':
