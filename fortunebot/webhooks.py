@@ -7,7 +7,9 @@ from . import config
 from . import message
 
 def handle(request):
-    print("In fortunebot:webhooks:handle", file=sys.stderr, )
+    print("In fortunebot:webhooks:handle", file=sys.stderr)
+    print(request)
+    sys.stderr.flush()
     if not request:
         raise Exception('Invalid Request')
 
