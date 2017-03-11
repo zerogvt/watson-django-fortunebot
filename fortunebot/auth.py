@@ -19,7 +19,7 @@ def authenticateApp():
     payload = {"grant_type": "client_credentials"}
     headers = {"Authorization": "Basic %s" % base64.b64encode(credentials)}
     try:
-        print(base64.decodestring("%s", base64.b64encode(credentials)))
+        print(base64.decodestring("%s" % base64.b64encode(credentials)))
     except binascii.Error:
         print("no correct base64")
     # POST to /oauth/token to obtain access token
