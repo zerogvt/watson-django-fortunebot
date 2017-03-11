@@ -34,6 +34,8 @@ def verification(inp):
     print("In fortunebot:webhooks:verification", file=sys.stderr)
     responseBody = {'response': str(inp['challenge'])}
     print(responseBody)
+    print(config.WEBHOOK_SECRET)
+    print(str(json.dumps(responseBody)))
     print("===========")
     sys.stderr.flush()
     response = HttpResponse(content = json.dumps(responseBody),
