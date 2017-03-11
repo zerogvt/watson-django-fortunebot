@@ -41,7 +41,7 @@ def verification(inp):
     response = HttpResponse(content = json.dumps(responseBody),
                       content_type='application/json', status=200)
     tmp = hmac.new(config.WEBHOOK_SECRET.encode('UTF-8'),
-                   msg=inp['challenge'].encode('UTF-8'), 
+                   msg=str(json.dumps(responseBody)), 
                    digestmod=hashlib.sha256)
     print(tmp)
     print("===========")
