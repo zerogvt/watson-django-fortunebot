@@ -12,8 +12,7 @@ def authenticateApp():
 
     # Pull in app id and app secret
     creds_str = '%s:%s' % (config.APP_ID, config.APP_SECRET)
-    credentials = creds_str.encode()
-    print(credentials)
+    credentials = creds_str.encode(encoding='UTF-8')
 
     # Construct "client_credentials" request for token
     payload = {"grant_type": "client_credentials"}
@@ -23,7 +22,9 @@ def authenticateApp():
     authResponse = requests.post(auth_api, data=payload, headers=headers)
     print("===================")
     print(authResponse.text)
+    print(json.loads(authResponse.body.decode("utf-8")))
     print("===================")
+
     sys.stderr.flush()
     body = json.loads(authResponse.body.decode("utf-8"))
     return body['access_token']
