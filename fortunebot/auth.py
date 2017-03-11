@@ -20,10 +20,12 @@ def authenticateApp():
 
     # POST to /oauth/token to obtain access token
     authResponse = requests.post(auth_api, data=payload, headers=headers)
-    print("===================")
+    print("===================>>")
+    print(payload)
+    print(headers)
     print(authResponse.text)
     print(json.loads(authResponse.body.decode("utf-8")))
-    print("===================")
+    print("===================<<")
 
     sys.stderr.flush()
     body = json.loads(authResponse.body.decode("utf-8"))
