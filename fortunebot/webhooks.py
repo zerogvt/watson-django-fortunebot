@@ -35,12 +35,12 @@ def verification(inp):
     responseBody = {'response': str(inp['challenge'])}
     print(responseBody)
     print(config.WEBHOOK_SECRET)
-    print(str(json.dumps(responseBody)))
+    print(inp['challenge'].encode('UTF-8'))
     print("===========")
     sys.stderr.flush()
     response = HttpResponse(content = json.dumps(responseBody),
                       content_type='application/json', status=200)
-    tmp = hmac.new(config.WEBHOOK_SECRET, msg=str(json.dumps(responseBody)), 
+    tmp = hmac.new(config.WEBHOOK_SECRET, msg=inp['challenge'].encode('UTF-8'), 
                       digestmod=hashlib.sha256)
     print(tmp)
     print("===========")
