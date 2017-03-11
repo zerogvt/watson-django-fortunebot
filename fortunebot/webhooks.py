@@ -13,7 +13,7 @@ def handle(request):
     print(request.GET)
     print(request.content_type)
     print(request.content_params)
-    print(request.body)
+    print(json.loads(request.body.decode("utf-8")))
     print("===================")
     sys.stderr.flush()
     if not request:
@@ -33,7 +33,7 @@ def handle(request):
 def verification(inp):
     print("In fortunebot:webhooks:verification", file=sys.stderr)
     responseBody = {'response': str(inp['challenge'])}
-    response = HttpResponse(response=json.dumps(responseBody),
+    response = HttpResponse(content = json.dumps(responseBody),
                       content_type='application/json', status=200)
     newhdr = hmac.new(config.WEBHOOK_SECRET, msg=str(json.dumps(responseBody)), 
                       digestmod=hashlib.sha256).hexdigest()
