@@ -11,7 +11,7 @@ def authenticateApp():
     auth_api = '%s/oauth/token' % config.WATSON_WORK_SERVICES
 
     # Pull in app id and app secret
-    credentials = '%s:%s' % (config.APP_ID, config.APP_SECRET)
+    credentials = b'%s:%s' % (config.APP_ID, config.APP_SECRET)
     # credentials = credentials.encode(encoding='ASCII')
 
     # Construct "client_credentials" request for token
