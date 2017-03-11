@@ -23,7 +23,8 @@ def createMessage(spaceId, text, title, color = config.MESSAGE_COLOR):
 # Leverage the default title and color values to send a simple message to Watson Work Services
 def sendSimpleMessage(spaceId, text):
     title = config.MESSAGE_TITLE
-    createMessage(spaceId, text, title)
+    msg = createMessage(spaceId, text, title)
+    sendMessage(spaceId, msg)
 
 # Call Send Message API to send message to Watson Work Services
 def sendMessage(spaceId, message):

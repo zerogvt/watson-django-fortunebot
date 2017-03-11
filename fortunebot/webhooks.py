@@ -8,13 +8,6 @@ from . import message
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
-    print("===================")
-    print(request.POST)
-    print(request.GET)
-    print(request.content_type)
-    print(request.content_params)
-    print(json.loads(request.body.decode("utf-8")))
-    print("===================")
     sys.stderr.flush()
     if not request:
         raise Exception('Invalid Request')
@@ -33,23 +26,14 @@ def handle(request):
 def verification(inp):
     print("In fortunebot:webhooks:verification", file=sys.stderr)
     responseBody = {'response': str(inp['challenge'])}
-    print(responseBody)
-    print(config.WEBHOOK_SECRET)
-    print(inp['challenge'].encode('UTF-8'))
-    print("===========")
     sys.stderr.flush()
     response = HttpResponse(content = json.dumps(responseBody),
                       content_type='application/json', status=200)
     tmp = hmac.new(config.WEBHOOK_SECRET.encode('UTF-8'),
                    msg=str(json.dumps(responseBody)).encode('UTF-8'),
                    digestmod=hashlib.sha256)
-    print(tmp)
-    print("===========")
-    sys.stderr.flush()
-    
     newhdr = tmp.hexdigest()
     response['X-Outbound-Token'] = newhdr
-    print(response)
     return response
 
 
