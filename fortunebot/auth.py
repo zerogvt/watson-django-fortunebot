@@ -18,7 +18,7 @@ def authenticateApp():
 
     # Construct "client_credentials" request for token
     payload = {"grant_type": "client_credentials"}
-    headers = {"Authorization": "Basic %s" % base64.b64encode(credentials)}
+    headers = {"Authorization": "Basic %s" % credentials}
     
     # POST to /oauth/token to obtain access token
     authResponse = requests.post(auth_api, data=payload, headers=headers)
