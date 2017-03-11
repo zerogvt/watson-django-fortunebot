@@ -14,6 +14,7 @@ def authenticateApp():
     # Pull in app id and app secret
     creds_str = '%s:%s' % (config.APP_ID, config.APP_SECRET)
     credentials = creds_str.encode(encoding='UTF-8')
+    print(credentials)
 
     # Construct "client_credentials" request for token
     payload = {"grant_type": "client_credentials"}
