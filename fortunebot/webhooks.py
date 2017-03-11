@@ -48,7 +48,7 @@ def verification(inp):
     sys.stderr.flush()
     
     newhdr = tmp.hexdigest()
-    response.headers['X-Outbound-Token'] = newhdr
+    response['X-Outbound-Token'] = newhdr
     print(response)
     return response
 
