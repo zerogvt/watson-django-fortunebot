@@ -46,6 +46,7 @@ def verification(inp):
 
 # Process message and send respond back to Watson Work Services for test 
 def parseMessage(body):
+    print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
     splitContent = body['content'].split(' ')
     if config.WEBHOOK_TRIGGER in splitContent:
