@@ -3,10 +3,17 @@ import requests
 import base64
 import json
 import sys
+import datetime
 
+
+access_token = None
+renew_at = None
 
 # Authenticate with the application id and application secret
 def authenticateApp():
+    now = datetime.datetime.now()
+    if access_token  and not now > renew_at:
+        return access_token
     # Build API for requesting access token of application
     auth_api = '%s/oauth/token' % config.WATSON_WORK_SERVICES
 
@@ -28,5 +35,12 @@ def authenticateApp():
         print(" with headers: %s" % headers)
         print("Got reply text: %s" % body)
         print("===================<<")
-    sys.stderr.flush()
-    return body['access_token']
+        sys.stderr.flush()
+
+    if body['access_token']:
+        access_token = body['access_token']
+        secs_to_live = body['expires_in']
+        renew_at = datetime.datetime.now() +\
+                   datetime.timedelta(second=secs_to_live)
+    return access_token
+
