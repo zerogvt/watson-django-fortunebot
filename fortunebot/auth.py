@@ -25,8 +25,6 @@ def authenticateApp():
     print("#%s#" % payload)
     print(headers)
     print(authResponse.text)
-    if (authResponse.status != "200"):
-        return None
     print(json.loads(authResponse.body.decode("utf-8")))
     print("===================<<")
 
