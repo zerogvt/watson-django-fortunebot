@@ -24,10 +24,8 @@ def authenticateApp():
     print("===================>>")
     print("#%s#" % payload)
     print(headers)
-    print(authResponse.text)
-    print(json.loads(authResponse.body.decode("utf-8")))
+    body = json.loads(authResponse.text)
+    print("Reply: %s" % body)
     print("===================<<")
-
     sys.stderr.flush()
-    body = json.loads(authResponse.body.decode("utf-8"))
     return body['access_token']
