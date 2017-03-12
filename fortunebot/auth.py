@@ -1,7 +1,6 @@
 from . import config
 import requests
 import base64
-import binascii
 import json
 import sys
 
@@ -18,7 +17,7 @@ def authenticateApp():
 
     # Construct "client_credentials" request for token
     payload = {"grant_type": "client_credentials"}
-    headers = {"Authorization": "Basic %s" % credentials}
+    headers = {"Authorization": "Basic %s" % credentials.decode('ASCII')}
     
     # POST to /oauth/token to obtain access token
     authResponse = requests.post(auth_api, data=payload, headers=headers)
@@ -26,6 +25,8 @@ def authenticateApp():
     print("#%s#" % payload)
     print(headers)
     print(authResponse.text)
+    if (authResponse.status != "200"):
+        return None
     print(json.loads(authResponse.body.decode("utf-8")))
     print("===================<<")
 
