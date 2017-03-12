@@ -11,6 +11,8 @@ renew_at = None
 
 # Authenticate with the application id and application secret
 def authenticateApp():
+    global access_token
+    global renew_at
     if access_token is not None  and renew_at is not None:
         now = datetime.datetime.now()
         if now < renew_at:
