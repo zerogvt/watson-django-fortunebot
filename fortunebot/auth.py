@@ -11,9 +11,10 @@ renew_at = None
 
 # Authenticate with the application id and application secret
 def authenticateApp():
-    now = datetime.datetime.now()
-    if access_token  and not now > renew_at:
-        return access_token
+    if access_token is not None  and renew_at is not None:
+        now = datetime.datetime.now()
+        if now < renew_at:
+            return access_token
     # Build API for requesting access token of application
     auth_api = '%s/oauth/token' % config.WATSON_WORK_SERVICES
 
