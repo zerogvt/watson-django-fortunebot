@@ -21,11 +21,12 @@ def authenticateApp():
     
     # POST to /oauth/token to obtain access token
     authResponse = requests.post(auth_api, data=payload, headers=headers)
-    print("===================>>")
-    print("#%s#" % payload)
-    print(headers)
     body = json.loads(authResponse.text)
-    print("Reply: %s" % body)
-    print("===================<<")
+    if config.MYDEBUG:
+        print("===================>>")
+        print("Sent auth payload: #%s#" % payload)
+        print(" with headers: %s" % headers)
+        print("Got reply text: %s" % body)
+        print("===================<<")
     sys.stderr.flush()
     return body['access_token']

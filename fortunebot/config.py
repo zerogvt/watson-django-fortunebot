@@ -23,3 +23,5 @@ MESSAGE_COLOR = '#006600'
 
 # Send message title
 MESSAGE_TITLE = 'Echo test'
+
+MYDEBUG = True
