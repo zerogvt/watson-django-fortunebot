@@ -44,6 +44,6 @@ def authenticateApp():
         access_token = body['access_token']
         secs_to_live = body['expires_in']
         renew_at = datetime.datetime.now() +\
-                   datetime.timedelta(second=secs_to_live)
+                   datetime.timedelta(seconds=secs_to_live)
     return access_token
 
