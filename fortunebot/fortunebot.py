@@ -1,18 +1,21 @@
 from os import listdir
 from os.path import isfile, join
+import random
 
-FORTUNE_FILES_PATH = "fortunes"
+FORTUNE_FILES_PATH = "fortunebot/fortunes/"
 fortunes = []
 
 def _initFortunes():
     global fortunes
-    fortfiles = [f for f in listdir(FORTUNE_FILES_PATH) \
+    fortfiles = [join(FORTUNE_FILES_PATH, f) for f in listdir(FORTUNE_FILES_PATH) \
                  if isfile(join(FORTUNE_FILES_PATH, f))]
     print(fortfiles)
     for fortfile in fortfiles:
-        with open(fortfile) as f:
-            for line in myreadlines(f, "\n%\n"):
+        try:
+            for line in open(fortfile,'r').read().split('\n%\n'):
                 fortunes.append(line)
+        except (UnicodeDecodeError):
+            continue
     return len(fortunes)
     
 

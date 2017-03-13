@@ -5,7 +5,7 @@ import sys
 from django.http import HttpResponse
 from . import config
 from . import message
-from .fortunebot import getFortune
+from . import fortunebot
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
@@ -44,6 +44,6 @@ def _parseMessage(body):
     spaceId = body['spaceId']
     splitContent = body['content'].split(' ')
     if config.WEBHOOK_TRIGGER in splitContent:
-        #message.sendSimpleMessage(spaceId, getFortune)
-        message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
+        message.sendSimpleMessage(spaceId, fortunebot.getFortune())
+        # message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
     return HttpResponse(status=200)
