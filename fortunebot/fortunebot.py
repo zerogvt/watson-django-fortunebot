@@ -57,8 +57,8 @@ def getFortuneWIndex(key):
         return getFortune()
     if key in _index.keys():
         print("YESYESYES")
-        row = random.randrange(len(_index[key]))
-        return _fortunes[_index[key].get(row)]
+        rind = random.randrange(len(_index[key]))
+        return _fortunes[_index[key][rind]]
     return None
 
 
