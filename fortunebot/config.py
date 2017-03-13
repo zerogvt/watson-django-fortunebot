@@ -16,10 +16,10 @@ APP_SECRET = os.getenv('APP_SECRET')
 WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET')
 
 # Webhook trigger word
-WEBHOOK_TRIGGER = '@pecho'
+WEBHOOK_TRIGGER = '@spam'
 
 # Send message color
-MESSAGE_COLOR = '#006600'
+MESSAGE_COLOR = '#6699ff'
 
 # Send message title
 MESSAGE_TITLE = 'Echo test'
