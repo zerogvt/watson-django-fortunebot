@@ -42,9 +42,7 @@ def _verification(inp):
 def _parseMessage(body):
     print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
-    splitContent = body['content'].split(' ')
-    if config.WEBHOOK_TRIGGER in splitContent:
-        arg = splitContent.replace(config.WEBHOOK_TRIGGER,"").strip()
+    if config.WEBHOOK_TRIGGER in body['content']:
+        arg = body['content'].replace(config.WEBHOOK_TRIGGER,"").strip()
         message.sendSimpleMessage(spaceId, fortunebot.getFortuneWIndex(arg))
-        # message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
     return HttpResponse(status=200)
