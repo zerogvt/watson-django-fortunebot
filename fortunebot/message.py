@@ -1,10 +1,20 @@
 import requests
 import sys
 from . import config
-
 from . import auth
 
-def createMessage(spaceId, text, title, color = config.MESSAGE_COLOR):
+
+# Leverage the default title and color values to send a simple message to Watson Work Services
+def sendSimpleMessage(spaceId, text):
+    if config.MYDEBUG:
+        print("In fortunebot:message:sendSimpleMessage", file=sys.stderr)
+        sys.stderr.flush()
+    title = config.MESSAGE_TITLE
+    msg = _createMessage(spaceId, text, title)
+    return _sendMessage(spaceId, msg)
+
+
+def _createMessage(spaceId, text, title, color = config.MESSAGE_COLOR):
     message = {
         "type": "appMessage",
         "version": 1.0,
@@ -21,14 +31,6 @@ def createMessage(spaceId, text, title, color = config.MESSAGE_COLOR):
 
     return message
 
-# Leverage the default title and color values to send a simple message to Watson Work Services
-def sendSimpleMessage(spaceId, text):
-    if config.MYDEBUG:
-        print("In fortunebot:message:sendSimpleMessage", file=sys.stderr)
-        sys.stderr.flush()
-    title = config.MESSAGE_TITLE
-    msg = createMessage(spaceId, text, title)
-    _sendMessage(spaceId, msg)
 
 # Call Send Message API to send message to Watson Work Services
 def _sendMessage(spaceId, message):

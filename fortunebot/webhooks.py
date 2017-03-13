@@ -5,6 +5,7 @@ import sys
 from django.http import HttpResponse
 from . import config
 from . import message
+from .fortunebot import getFortune
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
@@ -17,13 +18,13 @@ def handle(request):
     # Call verification function if request type is verification, else process message
     if str(body['type']) == 'verification':
         print("[INFO] Verification challenge")
-        return verification(body)
+        return _verification(body)
     elif str(body['type']) == 'message-created':
         print("[INFO] Message")
-        return parseMessage(body)
+        return _parseMessage(body)
 
 
-def verification(inp):
+def _verification(inp):
     print("In fortunebot:webhooks:verification", file=sys.stderr)
     responseBody = {'response': str(inp['challenge'])}
     sys.stderr.flush()
@@ -38,10 +39,11 @@ def verification(inp):
 
 
 # Process message and send respond back to Watson Work Services for test 
-def parseMessage(body):
+def _parseMessage(body):
     print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
     splitContent = body['content'].split(' ')
     if config.WEBHOOK_TRIGGER in splitContent:
-        message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
+        message.sendSimpleMessage(spaceId, getFortune)
+        # message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
     return HttpResponse(status=200)
