@@ -44,5 +44,6 @@ def _parseMessage(body):
     spaceId = body['spaceId']
     if config.WEBHOOK_TRIGGER in body['content']:
         arg = body['content'].replace(config.WEBHOOK_TRIGGER,"").strip()
+        print(">>>> %s " % arg)
         message.sendSimpleMessage(spaceId, fortunebot.getFortuneWIndex(arg))
     return HttpResponse(status=200)

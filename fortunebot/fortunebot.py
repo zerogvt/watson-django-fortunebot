@@ -53,6 +53,7 @@ def getFortune():
 
 def getFortuneWIndex(key):
     if not key or key.isspace() or key not in _index.keys():
+        print("NOTNOTNOT")
         return getFortune()
     if key in _index.keys():
         row = random.randrange(len(_index[key]))
