@@ -44,6 +44,6 @@ def _parseMessage(body):
     spaceId = body['spaceId']
     splitContent = body['content'].split(' ')
     if config.WEBHOOK_TRIGGER in splitContent:
-        message.sendSimpleMessage(spaceId, getFortune)
-        # message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
+        #message.sendSimpleMessage(spaceId, getFortune)
+        message.sendSimpleMessage(spaceId, ' '.join(splitContent[1:]))
     return HttpResponse(status=200)
