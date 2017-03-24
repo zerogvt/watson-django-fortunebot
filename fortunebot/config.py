@@ -22,6 +22,6 @@ WEBHOOK_TRIGGER = '@oscar'
 MESSAGE_COLOR = '#6699ff'
 
 # Send message title
-MESSAGE_TITLE = '>'
+MESSAGE_TITLE = ''
 
 MYDEBUG = True
