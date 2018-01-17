@@ -29,6 +29,7 @@ SECRET_KEY = 'd9(ziqcy1&_pe3yb!6kmh7(l#e+h8zxmb$spbiy0b9*v0u#7r1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['watson-on-work.herokuapp.com',
+                 'wow-delivery.mybluemix.net',
                  'localhost']
 
 
