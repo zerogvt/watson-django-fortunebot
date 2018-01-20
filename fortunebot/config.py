@@ -16,7 +16,10 @@ APP_SECRET = os.getenv('APP_SECRET')
 WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET')
 
 # Webhook trigger word
-WEBHOOK_TRIGGER = '@oscar'
+OSCAR_TRIGGER = '@oscar'
+
+# Webhook trigger word
+WEATHER_TRIGGER = '@weather'
 
 # Send message color
 MESSAGE_COLOR = '#6699ff'

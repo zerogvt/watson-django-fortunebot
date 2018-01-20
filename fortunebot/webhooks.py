@@ -42,7 +42,10 @@ def _verification(inp):
 def _parseMessage(body):
     print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
-    if config.WEBHOOK_TRIGGER in body['content']:
-        arg = body['content'].replace(config.WEBHOOK_TRIGGER,"").strip()
+    if body['content'].starts_with(config.OSCAR_TRIGGER):
+        arg = body['content'].replace(config.OSCAR_TRIGGER,"").strip()
         message.sendSimpleMessage(spaceId, fortunebot.getFortuneWIndex(arg))
+    if body['content'].starts_with(config.WEATHER_TRIGGER):
+        arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
+        message.sendSimpleMessage(spaceId, "weather args: " + arg)
     return HttpResponse(status=200)
