@@ -32,6 +32,7 @@ else:
     DEBUG = True
 
 ALLOWED_HOSTS = ['watson-on-work.herokuapp.com',
+                 'watson-fortunebot.herokuapp.com',
                  'wow-delivery.mybluemix.net',
                  'localhost']
 
