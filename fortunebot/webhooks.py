@@ -2,10 +2,13 @@ import hmac
 import json
 import hashlib
 import sys
+import logging
 from django.http import HttpResponse
 from . import config
 from . import message
 from . import fortunebot
+
+logger = logging.getLogger(__name__)
 
 def handle(request):
     print("In fortunebot:webhooks:handle", file=sys.stderr)
@@ -48,4 +51,5 @@ def _parseMessage(body):
     if body['content'].starts_with(config.WEATHER_TRIGGER):
         arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
         message.sendSimpleMessage(spaceId, "weather args: " + arg)
+    logger.error("msg body content:" + body['content'])
     return HttpResponse(status=200)
