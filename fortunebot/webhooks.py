@@ -51,9 +51,12 @@ def _parseMessage(body):
         arg = body['content'].replace(config.OSCAR_TRIGGER,"").strip()
         watson_message.sendSimpleMessage(spaceId,
                                          fortunebot.getFortuneWIndex(arg))
-    if body['content'].startswith(config.WEATHER_TRIGGER):
-        arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
-        reply = weather.process(arg)
-        watson_message.sendSimpleMessage(spaceId, reply)
+    else:
+        if body['content'].startswith(config.WEATHER_TRIGGER):
+            arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
+            # reply = weather.process(arg)
+            reply = "TODO " + arg
+            watson_message.sendSimpleMessage(spaceId, reply)
+
     logger.error("msg body content:" + body['content'])
     return HttpResponse(status=200)
