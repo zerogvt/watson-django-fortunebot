@@ -6,8 +6,9 @@ from unittest.mock import patch
 from fortunebot import fortunebot as fb
 from fortunebot.fortunebot import getIndex
 from fortunebot import webhooks
-from fortunebot import message
+from fortunebot import watson_message
 from fortunebot import config
+from fortunebot import weather
 
 class FBTest(TestCase):
 
@@ -38,14 +39,16 @@ class FBTest(TestCase):
         for key in ["computer", "nerd", "future", "black"]:
             assert fb.getFortuneWIndex(key) != None
 
-    @patch('fortunebot.message.sendSimpleMessage')
+    @patch('fortunebot.watson_message.sendSimpleMessage')
     def test_webhook_oscar(self, mock_send):
         msg = {'spaceId': 'test_space', 'content' : config.OSCAR_TRIGGER}
         webhooks._parseMessage(msg)
         mock_send.assert_called_once_with('test_space', unittest.mock.ANY)
 
-    @patch('fortunebot.message.sendSimpleMessage')
-    def test_webhook_weather(self, mock_send):
-        msg = {'spaceId': 'test_space', 'content' : config.WEATHER_TRIGGER}
+    @patch('fortunebot.watson_message.sendSimpleMessage')
+    @patch('fortunebot.weather.process')
+    def test_webhook_weather(self, mock_process, mock_send):
+        msg = {'spaceId': 'test_space',
+               'content' : config.WEATHER_TRIGGER +' IE'}
         webhooks._parseMessage(msg)
-        mock_send.assert_called_once_with('test_space', unittest.mock.ANY)
+        mock_process.assert_called_once_with(unittest.mock.ANY)

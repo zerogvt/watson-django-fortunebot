@@ -21,6 +21,9 @@ OSCAR_TRIGGER = '@oscar'
 # Webhook trigger word
 WEATHER_TRIGGER = '@weather'
 
+WEATHER_URL = os.getenv("WEATHER_URL")
+WEATHER_PORT = os.getenv("WEATHER_PORT")
+
 # Send message color
 MESSAGE_COLOR = '#6699ff'
 

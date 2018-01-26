@@ -5,8 +5,9 @@ import sys
 import logging
 from django.http import HttpResponse
 from . import config
-from . import message
+from . import watson_message
 from . import fortunebot
+from . import weather
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,8 @@ def handle(request):
 
     body = json.loads(request.body.decode("utf-8"))
 
-    # Call verification function if request type is verification, else process message
+    # Call verification function if request type is verification, 
+    # else process message
     if str(body['type']) == 'verification':
         print("[INFO] Verification challenge")
         return _verification(body)
@@ -47,9 +49,11 @@ def _parseMessage(body):
     spaceId = body['spaceId']
     if body['content'].startswith(config.OSCAR_TRIGGER):
         arg = body['content'].replace(config.OSCAR_TRIGGER,"").strip()
-        message.sendSimpleMessage(spaceId, fortunebot.getFortuneWIndex(arg))
+        watson_message.sendSimpleMessage(spaceId,
+                                         fortunebot.getFortuneWIndex(arg))
     if body['content'].startswith(config.WEATHER_TRIGGER):
         arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
-        message.sendSimpleMessage(spaceId, "weather args: " + arg)
+        reply = weather.process(arg)
+        watson_message.sendSimpleMessage(spaceId, reply)
     logger.error("msg body content:" + body['content'])
     return HttpResponse(status=200)
