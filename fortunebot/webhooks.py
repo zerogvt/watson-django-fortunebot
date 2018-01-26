@@ -45,10 +45,10 @@ def _verification(inp):
 def _parseMessage(body):
     print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
-    if body['content'].starts_with(config.OSCAR_TRIGGER):
+    if body['content'].startswith(config.OSCAR_TRIGGER):
         arg = body['content'].replace(config.OSCAR_TRIGGER,"").strip()
         message.sendSimpleMessage(spaceId, fortunebot.getFortuneWIndex(arg))
-    if body['content'].starts_with(config.WEATHER_TRIGGER):
+    if body['content'].startswith(config.WEATHER_TRIGGER):
         arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
         message.sendSimpleMessage(spaceId, "weather args: " + arg)
     logger.error("msg body content:" + body['content'])

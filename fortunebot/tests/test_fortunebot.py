@@ -1,9 +1,13 @@
 from django.test import TestCase
-
+import unittest 
+from unittest.mock import patch
 
 # Create your tests here.
 from fortunebot import fortunebot as fb
 from fortunebot.fortunebot import getIndex
+from fortunebot import webhooks
+from fortunebot import message
+from fortunebot import config
 
 class FBTest(TestCase):
 
@@ -32,4 +36,16 @@ class FBTest(TestCase):
 
     def test_index(self):
         for key in ["computer", "nerd", "future", "black"]:
-            assert fb.getFortuneWIndex(key) != None 
+            assert fb.getFortuneWIndex(key) != None
+
+    @patch('fortunebot.message.sendSimpleMessage')
+    def test_webhook_oscar(self, mock_send):
+        msg = {'spaceId': 'test_space', 'content' : config.OSCAR_TRIGGER}
+        webhooks._parseMessage(msg)
+        mock_send.assert_called_once_with('test_space', unittest.mock.ANY)
+
+    @patch('fortunebot.message.sendSimpleMessage')
+    def test_webhook_weather(self, mock_send):
+        msg = {'spaceId': 'test_space', 'content' : config.WEATHER_TRIGGER}
+        webhooks._parseMessage(msg)
+        mock_send.assert_called_once_with('test_space', unittest.mock.ANY)
