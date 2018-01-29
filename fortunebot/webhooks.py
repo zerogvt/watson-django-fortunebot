@@ -47,6 +47,9 @@ def _verification(inp):
 def _parseMessage(body):
     print(str(body), file=sys.stderr)
     spaceId = body['spaceId']
+    # ack msg ASAP...
+    watson_message.ackMessage(spaceId)
+    # ..then process it 
     if body['content'].startswith(config.OSCAR_TRIGGER):
         arg = body['content'].replace(config.OSCAR_TRIGGER,"").strip()
         watson_message.sendSimpleMessage(spaceId,
@@ -54,8 +57,7 @@ def _parseMessage(body):
     else:
         if body['content'].startswith(config.WEATHER_TRIGGER):
             arg = body['content'].replace(config.WEATHER_TRIGGER,"").strip()
-            # reply = weather.process(arg)
-            reply = "TODO " + arg
+            reply = weather.process(arg)
             watson_message.sendSimpleMessage(spaceId, reply)
 
     logger.error("msg body content:" + body['content'])

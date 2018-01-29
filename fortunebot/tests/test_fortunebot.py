@@ -9,6 +9,7 @@ from fortunebot import webhooks
 from fortunebot import watson_message
 from fortunebot import config
 from fortunebot import weather
+from fortunebot import auth
 
 class FBTest(TestCase):
 
@@ -40,14 +41,18 @@ class FBTest(TestCase):
             assert fb.getFortuneWIndex(key) != None
 
     @patch('fortunebot.watson_message.sendSimpleMessage')
-    def test_webhook_oscar(self, mock_send):
+    @patch('fortunebot.auth.authenticateApp')
+    def test_webhook_oscar(self, mock_auth, mock_send):
+        mock_auth.return_value = 'MOCK_TOKEN'
         msg = {'spaceId': 'test_space', 'content' : config.OSCAR_TRIGGER}
         webhooks._parseMessage(msg)
         mock_send.assert_called_once_with('test_space', unittest.mock.ANY)
 
     @patch('fortunebot.watson_message.sendSimpleMessage')
     @patch('fortunebot.weather.process')
-    def test_webhook_weather(self, mock_process, mock_send):
+    @patch('fortunebot.auth.authenticateApp')
+    def test_webhook_weather(self, mock_auth, mock_process, mock_send):
+        mock_auth.return_value = 'MOCK_TOKEN'
         msg = {'spaceId': 'test_space',
                'content' : config.WEATHER_TRIGGER +' IE'}
         webhooks._parseMessage(msg)
