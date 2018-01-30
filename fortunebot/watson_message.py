@@ -49,9 +49,9 @@ def ackMessage(spaceId):
     if config.MYDEBUG:
         print("Msg ack", file=sys.stderr)
         sys.stderr.flush()
-    api = '%s/v1/spaces/%s/messages' % (config.WATSON_WORK_SERVICES, spaceId)
+    api = 'https://watson-fortunebot.herokuapp.com/fortunebot/webhook'
     accessToken = auth.authenticateApp()
     headers = {'Authorization': 'Bearer %s' % accessToken,
-               'status': '%d' % requests.codes.ok}
-    res = requests.post(api, json="", headers=headers)
+               'status': '200 OK'}
+    res = requests.post(api, json="{'type':'message-created'}", headers=headers)
     return res
